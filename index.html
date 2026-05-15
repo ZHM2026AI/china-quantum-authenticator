@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>China Quantum Authenticator | 中国量子AI图像司法鉴定系统</title>
+    <meta name="description" content="China Quantum Authenticator - The world's most advanced AI-powered image authenticity verification system, built with cutting-edge Chinese quantum technology. Unlock unlimited access with our premium membership.">
+    <meta name="keywords" content="AI image verification, China quantum tech, deepfake detection, image forensics, premium membership, international service">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(45, 55, 72, 0.8);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #ffd700, #ff8c00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .header p {
+            color: #a0aec0;
+            font-size: 14px;
+        }
+        .upload-area {
+            border: 2px dashed #4a5568;
+            border-radius: 12px;
+            padding: 50px 20px;
+            text-align: center;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(26, 32, 44, 0.5);
+        }
+        .upload-area:hover {
+            border-color: #ffd700;
+            background: rgba(255, 215, 0, 0.05);
+        }
+        .upload-area p {
+            font-size: 16px;
+            color: #cbd5e0;
+        }
+        button {
+            background: linear-gradient(90deg, #ffd700, #ff8c00);
+            color: #1a202c;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+        button:disabled {
+            background: #4a5568;
+            color: #a0aec0;
+            cursor: not-allowed;
+        }
+        .info {
+            text-align: center;
+            margin-top: 25px;
+            color: #a0aec0;
+            font-size: 15px;
+        }
+
+        /* 会员弹窗样式 */
+        #memberModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        #memberModal .modal-content {
+            background: #2d3748;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 480px;
+            width: 90%;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        #memberModal h2 {
+            color: #ffd700;
+            font-size: 26px;
+            margin: 0 0 10px 0;
+            font-weight: 700;
+        }
+        #memberModal p {
+            color: #cbd5e0;
+            font-size: 16px;
+            margin: 0 0 25px 0;
+        }
+        #memberModal .price-box {
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 0 auto 25px auto;
+            max-width: 320px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+        #memberModal .price-box .title {
+            color: #ffd700;
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0;
+        }
+        #memberModal .price-box .price {
+            color: #ff8c00;
+            font-size: 20px;
+            margin: 10px 0 0 0;
+        }
+        #memberModal .qr-area {
+            margin: 0 auto 25px auto;
+            max-width: 220px;
+        }
+        #memberModal .qr-area .tip {
+            color: #e2e8f0;
+            font-size: 15px;
+            margin: 0 0 10px 0;
+        }
+        #memberModal .qr-area .sub-tip {
+            color: #a0aec0;
+            font-size: 13px;
+            margin: 0 0 15px 0;
+        }
+        #memberModal .qr-area img {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            border: 3px solid #ffd700;
+            object-fit: cover;
+        }
+        #memberModal .benefits {
+            text-align: left;
+            margin: 0 auto 30px auto;
+            max-width: 340px;
+        }
+        #memberModal .benefits h3 {
+            color: #ffd700;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0 0 12px 0;
+        }
+        #memberModal .benefits ul {
+            color: #cbd5e0;
+            font-size: 14px;
+            line-height: 1.8;
+            margin: 0;
+            padding-left: 20px;
+        }
+        #memberModal .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        #memberModal .btn-group button {
+            width: auto;
+            padding: 12px 25px;
+        }
+        #memberModal .btn-group .close-btn {
+            background: #4a5568;
+            color: #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>China Quantum Authenticator</h1>
+            <p>中国量子AI图像司法鉴定系统</p>
+        </div>
+        <div class="upload-area" id="uploadArea">
+            <p>点击或拖拽图片到此处上传验真</p>
+            <input type="file" id="fileInput" accept="image/*" style="display: none;">
+        </div>
+        <button id="detectBtn" onclick="completeDetection()">开始验真</button>
+        <div class="info">
+            <p>剩余免费次数：<span id="freeCountDisplay">3</span>/3</p>
+        </div>
+    </div>
+
+    <!-- 会员升级弹窗（含完整英文宣传文案） -->
+    <div id="memberModal">
+        <div class="modal-content">
+            <h2>Unlock Unlimited Access to China's Most Advanced AI Image Forensics System</h2>
+            <p>China Quantum Authenticator represents the pinnacle of Chinese quantum-powered AI technology, offering unparalleled accuracy in detecting deepfakes, manipulated images, and synthetic media. Our premium membership unlocks the full potential of this revolutionary system, designed to combat the global spread of disinformation with Chinese technological excellence.</p>
+            <div class="price-box">
+                <p class="title">Annual Premium Membership</p>
+                <p class="price">¥500 RMB / Year</p>
+            </div>
+            <div class="qr-area">
+                <p class="tip">Scan to Pay via International WeChat</p>
+                <p class="sub-tip">Unlock China's cutting-edge AI verification technology today</p>
+                <img src="wechat-pay-qr.jpg" alt="International WeChat Pay QR Code">
+            </div>
+            <div class="benefits">
+                <h3>Premium Membership Benefits / 会员权益:</h3>
+                <ul>
+                    <li>Unlimited AI Authentications / 无限次AI图像真伪鉴定: No more free trial limits. Verify an unlimited number of images with our state-of-the-art quantum algorithms, powered by China's most advanced AI research labs.</li>
+                    <li>High-Resolution Official Reports / 高清可打印司法鉴定报告: Receive professional-grade, court-admissible verification reports with detailed analysis, timestamps, and cryptographic signatures, suitable for legal and professional use worldwide.</li>
+                    <li>Multi-Dimensional Traceability Analysis / 多维度深度溯源分析: Access our exclusive blockchain-powered traceability system, which tracks the entire lifecycle of an image, from creation to modification, using Chinese quantum-resistant encryption.</li>
+                    <li>Priority Algorithm Updates / 优先前沿算法更新权限: Be the first to receive updates to our detection models, which are continuously trained on the latest deepfake and synthetic media threats, leveraging China's vast dataset of AI-generated content.</li>
+                    <li>Global Device Sync Support / 全球设备权益同步服务: Your premium membership works across all your devices, anywhere in the world. Seamlessly sync your verification history and reports with our secure cloud servers, built on China's leading cloud infrastructure.</li>
+                    <li>Priority Customer Support / 专属国际客服通道: Get priority access to our multilingual support team, available 24/7 to assist you with any questions or issues. Experience the renowned efficiency and reliability of Chinese customer service.</li>
+                    <li>API Access for Developers / 开发者API接口: Integrate China Quantum Authenticator's technology directly into your own applications with our RESTful API, opening up new possibilities for businesses and developers worldwide.</li>
+                    <li>Exclusive Research Insights / 独家AI鉴真行业报告: Receive quarterly reports on the latest trends in synthetic media and deepfake technology, compiled by our team of Chinese AI experts, giving you a competitive edge in the fight against disinformation.</li>
+                </ul>
+            </div>
+            <div class="btn-group">
+                <button class="close-btn" onclick="closeModal()">Close / 关闭</button>
+                <button onclick="location.href='#support'">Learn More / 了解更多</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let freeCount = localStorage.getItem('freeDetectionCount') || 3;
+        document.getElementById('freeCountDisplay').innerText = `剩余免费次数：${freeCount}/3`;
+
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#ffd700';
+            uploadArea.style.backgroundColor = 'rgba(255, 215, 0, 0.05)';
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = '#4a5568';
+            uploadArea.style.backgroundColor = 'transparent';
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#4a5568';
+            uploadArea.style.backgroundColor = 'transparent';
+            if (e.dataTransfer.files.length) {
+                fileInput.files = e.dataTransfer.files;
+            }
+        });
+
+        function completeDetection() {
+            if (freeCount > 0) {
+                freeCount--;
+                localStorage.setItem('freeDetectionCount', freeCount);
+                document.getElementById('freeCountDisplay').innerText = `剩余免费次数：${freeCount}/3`;
+                
+                alert('验真完成！剩余次数：' + freeCount);
+
+                if (freeCount === 0) {
+                    uploadArea.style.pointerEvents = 'none';
+                    document.getElementById('detectBtn').disabled = true;
+                    document.getElementById('memberModal').style.display = 'flex';
+                }
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('memberModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
